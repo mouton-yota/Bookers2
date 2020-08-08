@@ -1,0 +1,69 @@
+<div class='body'>
+  <div class='container'>
+    <p id="notice"></p>
+      <div class='col-xs-3'>
+        <h2>User info[i]</h2>
+          <table class='table'>
+            <%= attachment_image_tag current_user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "100x100" %>
+            <tr>
+            <th>name</th>
+            <th><%= current_user.name %></th>
+            </tr>
+            <tr>
+    	      <th>introduction</th>
+    	      <th><%= current_user.introduction %></th>
+            </tr>
+          </table>
+          <div class='row'>
+            <%= link_to "", edit_user_path(current_user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %>
+          </div>
+
+          <h2>New book</h2>
+          <div class="row">
+            <%= form_for(@book_new) do |f| %>
+              <h4>Title</h4>
+            <%= f.text_field :title, class: "col-xs-12" %>
+          </div>
+          <div class="row">
+            <h4>Opinion</h4>
+            <%= f.text_area :body, class: "col-xs-12" %>
+          </div>
+          <br>
+          <div class="row">
+            <%= f.submit 'Create Book', class: "col-xs-12 btn btn-primary" %>
+            <% end %>
+          </div>
+      </div>
+
+    <div class='col-xs-9'>
+      <h2>Book detail</h2>
+      <table class='table'>
+        <tbody>
+  	    <tr>
+  	    <td>
+        <%= link_to user_path(current_user.id) do %>
+  	    <%= attachment_image_tag current_user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %>
+        <br>
+        <%= current_user.name %>
+        <% end %>
+        </td>
+        <td>
+        <p><%= @book.title %></p>
+        </td>
+        <td>
+        <p><%= @book.body %></p>
+        </td>
+        <td>
+          <% if @book.user == current_user %>
+        <%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-success" %>
+        </td>
+        <td>
+            <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-danger" %>
+          <% end %>
+        </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
